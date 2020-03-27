@@ -1,0 +1,26 @@
+{
+  "name": "covid19-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IrvanAhmadP/covid19-api.git"
+  },
+  "keywords": [
+    "covid19"
+  ],
+  "author": "iap",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IrvanAhmadP/covid19-api/issues"
+  },
+  "homepage": "https://github.com/IrvanAhmadP/covid19-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "scraperjs": "^1.2.0"
+  }
+}
