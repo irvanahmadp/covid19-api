@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/IrvanAhmadP/covid19-api#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "^4.17.1",
     "scraperjs": "^1.2.0"
   }
