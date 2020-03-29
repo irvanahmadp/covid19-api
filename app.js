@@ -4,16 +4,40 @@ const port = 3000
 const scraperjs = require('scraperjs')
 const axios = require('axios');
 
-let url_prov_jatim = "https://jatimdev.com/corona"
-let url_prov_jabar = "https://covid19-public.digitalservice.id/api/v1/rekapitulasi/jabar?level=kab"
+let baseUrl = "localhost:3000/"
 
-app.get('/provinsi/', (req, res) => {
-  const provinsi = ["jawa-timur", "jawa-barat"]
+let urlProvJatim = "https://jatimdev.com/corona"
+let urlProvJabar = "https://covid19-public.digitalservice.id/api/v1/rekapitulasi/jabar?level=kab"
+
+let urlKotaSurabaya = "https://lawancovid-19.surabaya.go.id/area/report?tanggal=28-03-2020&id_kec="
+
+app.get('/', (req, res) => {
+  const listDaerah = ["provinsi", "kabupaten"]
   const output = [{"status_code" : 200}]
   const data = []
 
-  provinsi.forEach(function(provinsi, index){
-    data.push({"namaProvinsi" : provinsi})
+  listDaerah.forEach(function(daerah, index){
+    data.push({
+      "daerah" : daerah,
+      "url" : baseUrl + daerah + "/"
+    })
+  })
+
+  output.push({"data" : data})
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(output))
+})
+
+app.get('/provinsi/', (req, res) => {
+  const listProvinsi = ["jawa timur", "jawa barat"]
+  const output = [{"status_code" : 200}]
+  const data = []
+
+  listProvinsi.forEach(function(provinsi, index){
+    data.push({
+      "namaProvinsi" : provinsi,
+      "url" : baseUrl + "provinsi/" + provinsi.replace(" ", "-")
+    })
   })
 
   output.push({"data" : data})
@@ -22,7 +46,7 @@ app.get('/provinsi/', (req, res) => {
 })
 
 app.get('/provinsi/jawa-timur/', (req, res) => {
-  scraperjs.StaticScraper.create(url_prov_jatim)
+  scraperjs.StaticScraper.create(urlProvJatim)
   .scrape(function($) {
     return $("td").map(function() {
       return $(this).text()
@@ -39,6 +63,7 @@ app.get('/provinsi/jawa-timur/', (req, res) => {
         "positif" : parseInt(dataScrapingArr[(i*5)+3]),
       }
     }
+
     output.push({"data" : data})
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(output))
@@ -46,7 +71,7 @@ app.get('/provinsi/jawa-timur/', (req, res) => {
 })
 
 app.get('/provinsi/jawa-barat/', (req, res) => {
-  axios.get(url_prov_jabar)
+  axios.get(urlProvJabar)
     .then(function(response){
       responseData = response.data
       const output = [{"status_code" : responseData.status_code}, {"provinsi" : "jawa-barat"}]
@@ -68,7 +93,47 @@ app.get('/provinsi/jawa-barat/', (req, res) => {
     .catch(function(error){
       console.log(error)
     })
+})
 
+app.get('/kabupaten/surabaya', (req, res) => {
+  scraperjs.StaticScraper.create(urlKotaSurabaya)
+  .scrape(function($) {
+    return $("td").map(function() {
+      return $(this).text()
+    }).get()
+  })
+  .then(function(dataScrapingArr) {
+    const output = [{"status_code" : 200}, {"kabupaten" : "kota surabaya"}]
+    const data = []
+    
+    let indexKecamatan = -1
+    let indexKelurahan = 0
+    const dataKecamatanTemp = {}
+    for(i =0; i < (dataScrapingArr.length / 6); i++){
+      if(dataScrapingArr[i*6] != ''){
+        /* nama kecamatan */
+        indexKecamatan++
+        indexKelurahan = 0
+        data[indexKecamatan] = {
+          "kabupaten" : dataScrapingArr[i*6],
+          "data" : []
+        }
+      }else{
+        data[indexKecamatan].data[indexKelurahan] = {
+         "kelurahan" :  dataScrapingArr[(i*6)+1],
+         "ODP" : parseInt(dataScrapingArr[(i*6)+2]),
+         "PDP" : parseInt(dataScrapingArr[(i*6)+3]),
+         "positif" : parseInt(dataScrapingArr[(i*6)+4]),
+         "sembuh" : parseInt(dataScrapingArr[(i*6)+5]),
+        }
+        indexKelurahan++
+      }
+    }
+
+    output.push({"data" : data})
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify(output))
+  })
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
