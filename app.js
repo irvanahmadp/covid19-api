@@ -5,6 +5,7 @@ const scraperjs = require('scraperjs')
 const axios = require('axios');
 
 let baseUrl = "localhost:3000/"
+console.log(port)
 
 let urlProvJatim = "https://jatimdev.com/corona"
 let urlProvJabar = "https://covid19-public.digitalservice.id/api/v1/rekapitulasi/jabar?level=kab"
