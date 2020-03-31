@@ -3,7 +3,55 @@ const router = express.Router()
 const scraperjs = require('scraperjs')
 const axios = require('axios')
 
-let urlKotaSurabaya = "https://lawancovid-19.surabaya.go.id/area/report?tanggal=28-03-2020&id_kec="
+var date = new Date()
+if(date.getHours() + 7 < 18){
+  var tanggal = date.getDate() - 1
+  if(tanggal == -1){
+    switch(date.getMonth()){
+      case 0:
+        tanggal = 31
+        break
+      case 1:
+        tanggal = 29
+        break
+      case 2:
+        tanggal = 31
+        break
+      case 3:
+        tanggal = 30
+        break
+      case 4:
+        tanggal = 31
+        break
+      case 5:
+        tanggal = 30
+        break
+      case 6:
+        tanggal = 31
+        break
+      case 7:
+        tanggal = 31
+        break
+      case 8:
+        tanggal = 30
+        break
+      case 9:
+        tanggal = 31
+        break
+      case 10:
+        tanggal = 30
+        break
+      case 11:
+        tanggal = 31
+        break
+    }
+  }
+  var urlKotaSurabayaDate = tanggal + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+}else{
+  var urlKotaSurabayaDate = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+}
+
+let urlKotaSurabaya = "https://lawancovid-19.surabaya.go.id/area/report?tanggal=" + urlKotaSurabayaDate + "&id_kec="
 
 router.get('/kabupaten/surabaya', kotaSurabaya)
 
