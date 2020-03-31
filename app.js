@@ -1,10 +1,10 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 8000
 const scraperjs = require('scraperjs')
 const axios = require('axios');
 
-let baseUrl = "localhost:3000/"
+let baseUrl = "localhost:8000/"
 
 let urlProvJatim = "https://jatimdev.com/corona"
 let urlProvJabar = "https://covid19-public.digitalservice.id/api/v1/rekapitulasi/jabar?level=kab"
