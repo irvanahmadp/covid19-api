@@ -5,12 +5,59 @@ const scraperjs = require('scraperjs')
 const axios = require('axios');
 
 let baseUrl = "/"
+var date = new Date()
+if(date.getHours() < 18){
+  var tanggal = date.getDate() - 1
+  if(tanggal == -1){
+    switch(date.getMonth()){
+      case 0:
+        tanggal = 31
+        break;
+      case 1:
+        tanggal = 29
+        break;
+      case 2:
+        tanggal = 31
+        break;
+      case 3:
+        tanggal = 30
+        break;
+      case 4:
+        tanggal = 31
+        break;
+      case 5:
+        tanggal = 30
+        break;
+      case 6:
+        tanggal = 31
+        break;
+      case 7:
+        tanggal = 31
+        break;
+      case 8:
+        tanggal = 30
+        break;
+      case 9:
+        tanggal = 31
+        break;
+      case 10:
+        tanggal = 30
+        break;
+      case 11:
+        tanggal = 31
+        break;
+    }
+  }
+  var urlKotaSurabayaDate = tanggal + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+}else{
+  var urlKotaSurabayaDate = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+}
 
 let urlProvJatim = "https://jatimdev.com/corona"
 let urlProvJabar = "https://covid19-public.digitalservice.id/api/v1/rekapitulasi/jabar?level=kab"
 
-let urlKotaSurabaya = "https://lawancovid-19.surabaya.go.id/area/report?tanggal=28-03-2020&id_kec="
-
+let urlKotaSurabaya = "https://lawancovid-19.surabaya.go.id/area/report?tanggal="+ urlKotaSurabayaDate +"&id_kec="
+console.log(urlKotaSurabaya)
 app.get('/', (req, res) => {
   const listDaerah = ["provinsi", "kabupaten"]
   const output = [{"status_code" : 200}]
@@ -25,7 +72,8 @@ app.get('/', (req, res) => {
 
   output.push({"data" : data})
   res.setHeader('Content-Type', 'application/json')
-  res.end(JSON.stringify(output))
+  // res.end(JSON.stringify(output))
+  res.send(''+date.getHours()+'')
 })
 
 app.get('/provinsi/', (req, res) => {
@@ -109,22 +157,22 @@ app.get('/kabupaten/surabaya', (req, res) => {
     let indexKecamatan = -1
     let indexKelurahan = 0
     const dataKecamatanTemp = {}
-    for(i =0; i < (dataScrapingArr.length / 6); i++){
-      if(dataScrapingArr[i*6] != ''){
+    for(i =0; i < (dataScrapingArr.length / 7); i++){
+      if(dataScrapingArr[i*7] != ''){
         /* nama kecamatan */
         indexKecamatan++
         indexKelurahan = 0
         data[indexKecamatan] = {
-          "kabupaten" : dataScrapingArr[i*6],
+          "kabupaten" : dataScrapingArr[i*7],
           "data" : []
         }
       }else{
         data[indexKecamatan].data[indexKelurahan] = {
-         "kelurahan" :  dataScrapingArr[(i*6)+1],
-         "ODP" : parseInt(dataScrapingArr[(i*6)+2]),
-         "PDP" : parseInt(dataScrapingArr[(i*6)+3]),
-         "positif" : parseInt(dataScrapingArr[(i*6)+4]),
-         "sembuh" : parseInt(dataScrapingArr[(i*6)+5]),
+         "kelurahan" :  dataScrapingArr[(i*7)+1],
+         "ODP" : parseInt(dataScrapingArr[(i*7)+2]),
+         "PDP" : parseInt(dataScrapingArr[(i*7)+3]),
+         "positif" : parseInt(dataScrapingArr[(i*7)+4]),
+         "sembuh" : parseInt(dataScrapingArr[(i*7)+5]),
         }
         indexKelurahan++
       }
