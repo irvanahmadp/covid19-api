@@ -4,11 +4,7 @@ const port = process.env.PORT || 3000
 const scraperjs = require('scraperjs')
 const axios = require('axios');
 
-var os = require("os");
-var hostname = os.hostname();
-let baseUrl = "localhost:5000/"
-console.log(port)
-console.log(hostname)
+let baseUrl = "/"
 
 let urlProvJatim = "https://jatimdev.com/corona"
 let urlProvJabar = "https://covid19-public.digitalservice.id/api/v1/rekapitulasi/jabar?level=kab"
