@@ -6,7 +6,7 @@ const axios = require('axios');
 
 let baseUrl = "/"
 var date = new Date()
-if(date.getHours() < 18){
+if(date.getHours() + 7 < 18){
   var tanggal = date.getDate() - 1
   if(tanggal == -1){
     switch(date.getMonth()){
@@ -72,8 +72,7 @@ app.get('/', (req, res) => {
 
   output.push({"data" : data})
   res.setHeader('Content-Type', 'application/json')
-  // res.end(JSON.stringify(output))
-  res.send(''+date.getHours()+'')
+  res.end(JSON.stringify(output))
 })
 
 app.get('/provinsi/', (req, res) => {
