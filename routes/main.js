@@ -6,7 +6,7 @@ router.get('/provinsi/', provinsi)
 router.get('/kabupaten/', kabupaten)
 
 function index(req, res){
-  const listDaerah = ["provinsi", "kabupaten"]
+  const listDaerah = ["provinsi"]
   const output = [{"status_code" : 200}]
   const data = []
   let baseUrl = req.headers.host + '/'
