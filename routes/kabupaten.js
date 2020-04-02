@@ -53,7 +53,7 @@ if(date.getHours() + 7 < 18){
 
 let urlKotaSurabaya = "https://lawancovid-19.surabaya.go.id/area/report?tanggal=" + urlKotaSurabayaDate + "&id_kec="
 
-router.get('/kabupaten/surabaya', kotaSurabaya)
+router.get('/kabupaten/kota-surabaya', kotaSurabaya)
 
 function kotaSurabaya(req, res){
   scraperjs.StaticScraper.create(urlKotaSurabaya)

@@ -3,6 +3,7 @@ const router = express.Router()
 
 router.get('/', index)
 router.get('/provinsi/', provinsi)
+router.get('/kabupaten/', kabupaten)
 
 function index(req, res){
   const listDaerah = ["provinsi", "kabupaten"]
@@ -31,6 +32,24 @@ function provinsi(req, res){
     data.push({
       "namaProvinsi" : provinsi,
       "url" : baseUrl + "provinsi/" + provinsi.replace(" ", "-")
+    })
+  })
+
+  output.push({"data" : data})
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify(output))
+}
+
+function kabupaten(req, res){
+  const listKabupaten = ["kota surabaya", "kabupaten gresik"]
+  const output = [{"status_code" : 200}]
+  const data = []
+  let baseUrl = req.headers.host + '/'
+
+  listKabupaten.forEach(function(kabupaten, index){
+    data.push({
+      "namaKabupaten" : kabupaten,
+      "url" : baseUrl + "kabupaten/" + kabupaten.replace(" ", "-")
     })
   })
 
