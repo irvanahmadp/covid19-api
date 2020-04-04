@@ -13,7 +13,7 @@ function jawaBarat(req, res){
   axios.get(urlProvJabar)
   .then(function(response){
     responseData = response.data
-    const output = [{"status_code" : responseData.status_code}, {"provinsi" : "jawa-barat"}]
+    const output = {"status_code" : responseData.status_code, "provinsi" : "jawa-barat"}
     const data = []
     responseData.data.content.forEach(function(dataKabupaten, index){
       data[index] = {
@@ -25,7 +25,7 @@ function jawaBarat(req, res){
         "meninggal" : dataKabupaten.meninggal,
       }
     })
-    output.push({"data" : data})
+    output.data = data
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(output))
   })
@@ -42,7 +42,7 @@ function jawaTimur(req, res){
     }).get()
   })
   .then(function(dataScrapingArr) {
-    const output = [{"status_code" : 200}, {"provinsi" : "jawa-timur"}]
+    const output = {"status_code" : 200, "provinsi" : "jawa-timur"}
     const data = []
     for(i =0; i < ((dataScrapingArr.length / 5) -1); i++){
       data[i] = {
@@ -53,7 +53,7 @@ function jawaTimur(req, res){
       }
     }
 
-    output.push({"data" : data})
+    output.data = data
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(output))
   })

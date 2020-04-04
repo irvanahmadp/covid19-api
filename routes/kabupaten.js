@@ -63,7 +63,7 @@ function kotaSurabaya(req, res){
     }).get()
   })
   .then(function(dataScrapingArr) {
-    const output = [{"status_code" : 200}, {"kabupaten" : "kota surabaya"}]
+    const output = {"status_code" : 200, "kabupaten" : "kota surabaya"}
     const data = []
     
     let indexKecamatan = -1
@@ -91,7 +91,7 @@ function kotaSurabaya(req, res){
       }
     }
 
-    output.push({"data" : data})
+    output.data = data
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(output))
   })

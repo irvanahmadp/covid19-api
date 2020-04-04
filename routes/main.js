@@ -7,7 +7,7 @@ router.get('/kabupaten/', kabupaten)
 
 function index(req, res){
   const listDaerah = ["provinsi"]
-  const output = [{"status_code" : 200}]
+  const output = {"status_code" : 200}
   const data = []
   let baseUrl = req.protocol + '://' + req.headers.host + '/'
   listDaerah.forEach(function(daerah, index){
@@ -17,14 +17,14 @@ function index(req, res){
     })
   })
 
-  output.push({"data" : data})
+  output.data = data
   res.setHeader('Content-Type', 'application/json')
   res.end(JSON.stringify(output))
 }
 
 function provinsi(req, res){
   const listProvinsi = ["jawa timur", "jawa barat"]
-  const output = [{"status_code" : 200}]
+  const output = {"status_code" : 200}
   const data = []
   let baseUrl = req.protocol + '://' + req.headers.host + '/'
 
@@ -35,14 +35,14 @@ function provinsi(req, res){
     })
   })
 
-  output.push({"data" : data})
+  output.data = data
   res.setHeader('Content-Type', 'application/json')
   res.end(JSON.stringify(output))
 }
 
 function kabupaten(req, res){
   const listKabupaten = ["kota surabaya", "kabupaten gresik"]
-  const output = [{"status_code" : 200}]
+  const output = {"status_code" : 200}
   const data = []
   let baseUrl = req.headers.host + '/'
 
@@ -53,7 +53,7 @@ function kabupaten(req, res){
     })
   })
 
-  output.push({"data" : data})
+  output.data = data
   res.setHeader('Content-Type', 'application/json')
   res.end(JSON.stringify(output))
 }
