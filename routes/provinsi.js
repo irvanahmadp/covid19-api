@@ -9,8 +9,8 @@ let urlProvJabar = "https://covid19-public.digitalservice.id/api/v1/rekapitulasi
 router.get('/provinsi/jawa-timur/', jawaTimur)
 router.get('/provinsi/jawa-barat/', jawaBarat)
 
-function jawaBarat(req, res){
-  axios.get(urlProvJabar)
+async function jawaBarat(req, res){
+  await axios.get(urlProvJabar)
   .then(function(response){
     responseData = response.data
     const output = {"status_code" : responseData.status_code, "provinsi" : "jawa-barat"}
@@ -34,8 +34,8 @@ function jawaBarat(req, res){
   })
 }
 
-function jawaTimur(req, res){
-  scraperjs.StaticScraper.create(urlProvJatim)
+async function jawaTimur(req, res){
+  await scraperjs.StaticScraper.create(urlProvJatim)
   .scrape(function($) {
     return $("td").map(function() {
       return $(this).text()
