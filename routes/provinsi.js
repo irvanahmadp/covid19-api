@@ -17,7 +17,7 @@ function jawaBarat(req, res){
     const data = []
     responseData.data.content.forEach(function(dataKabupaten, index){
       data[index] = {
-        "kabupaten" : dataKabupaten.nama_kab,
+        "kabupaten" : titleCase(dataKabupaten.nama_kab),
         "ODP" : dataKabupaten.odp_proses,
         "PDP" : dataKabupaten.pdp_proses,
         "positif" : dataKabupaten.positif,
@@ -46,7 +46,7 @@ function jawaTimur(req, res){
     const data = []
     for(i =0; i < ((dataScrapingArr.length / 5) -1); i++){
       data[i] = {
-        "kabupaten" : dataScrapingArr[i*5],
+        "kabupaten" : titleCase(dataScrapingArr[i*5]),
         "ODP" : parseInt(dataScrapingArr[(i*5)+1]),
         "PDP" : parseInt(dataScrapingArr[(i*5)+2]),
         "positif" : parseInt(dataScrapingArr[(i*5)+3]),
@@ -57,6 +57,17 @@ function jawaTimur(req, res){
     res.setHeader('Content-Type', 'application/json')
     res.end(JSON.stringify(output))
   })
+}
+
+function titleCase(str) {
+  var splitStr = str.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+      // You do not need to check if i is larger than splitStr length, as your for does that for you
+      // Assign it back to the array
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+  }
+  // Directly return the joined string
+  return splitStr.join(' '); 
 }
 
 module.exports = router
