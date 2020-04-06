@@ -30,7 +30,7 @@ function provinsi(req, res){
 
   listProvinsi.forEach(function(provinsi, index){
     data.push({
-      "namaProvinsi" : provinsi,
+      "namaProvinsi" : titleCase(provinsi),
       "url" : baseUrl + "provinsi/" + provinsi.replace(" ", "-")
     })
   })
@@ -48,7 +48,7 @@ function kabupaten(req, res){
 
   listKabupaten.forEach(function(kabupaten, index){
     data.push({
-      "namaKabupaten" : kabupaten,
+      "namaKabupaten" : titleCase(kabupaten),
       "url" : baseUrl + "kabupaten/" + kabupaten.replace(" ", "-")
     })
   })
@@ -56,6 +56,17 @@ function kabupaten(req, res){
   output.data = data
   res.setHeader('Content-Type', 'application/json')
   res.end(JSON.stringify(output))
+}
+
+function titleCase(str) {
+  var splitStr = str.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+      // You do not need to check if i is larger than splitStr length, as your for does that for you
+      // Assign it back to the array
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+  }
+  // Directly return the joined string
+  return splitStr.join(' '); 
 }
 
 module.exports = router
