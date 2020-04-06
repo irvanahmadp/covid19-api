@@ -1,12 +1,15 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3001
-const vhost = require('vhost')
+var cors = require('cors')
 
 const mainRouter = require('./routes/main.js')
 const provinsiRouter = require('./routes/provinsi.js')
 const kabupatenRouter = require('./routes/kabupaten.js')
 
+app.use(cors({
+  origin: '*'
+}));
 app.use(mainRouter)
 app.use(provinsiRouter)
 app.use(kabupatenRouter)
