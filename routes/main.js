@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
+const protocol = 'https'
+
 router.get('/', index)
 router.get('/provinsi/', provinsi)
 router.get('/kabupaten/', kabupaten)
@@ -9,7 +11,7 @@ function index(req, res){
   const listDaerah = ["provinsi"]
   const output = {"status_code" : 200}
   const data = []
-  let baseUrl = req.protocol + '://' + req.headers.host + '/'
+  let baseUrl = protocol + '://' + req.headers.host + '/'
   listDaerah.forEach(function(daerah, index){
     data.push({
       "daerah" : daerah,
@@ -26,7 +28,7 @@ function provinsi(req, res){
   const listProvinsi = ["jawa timur", "jawa barat"]
   const output = {"status_code" : 200}
   const data = []
-  let baseUrl = req.protocol + '://' + req.headers.host + '/'
+  let baseUrl = protocol + '://' + req.headers.host + '/'
 
   listProvinsi.forEach(function(provinsi, index){
     data.push({
