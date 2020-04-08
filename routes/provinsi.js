@@ -44,12 +44,12 @@ function jawaTimur(req, res){
   .then(function(dataScrapingArr) {
     const output = {"status_code" : 200, "provinsi" : "jawa-timur"}
     const data = []
-    for(i =0; i < ((dataScrapingArr.length / 5) -1); i++){
+    for(i =0; i < ((dataScrapingArr.length / 7) -1); i++){
       data[i] = {
-        "kabupaten" : titleCase(dataScrapingArr[i*5]),
-        "ODP" : parseInt(dataScrapingArr[(i*5)+1]),
-        "PDP" : parseInt(dataScrapingArr[(i*5)+2]),
-        "positif" : parseInt(dataScrapingArr[(i*5)+3]),
+        "kabupaten" : titleCase(dataScrapingArr[i*7]),
+        "ODP" : parseInt(dataScrapingArr[(i*7)+3]),
+        "PDP" : parseInt(dataScrapingArr[(i*7)+4]),
+        "positif" : parseInt(dataScrapingArr[(i*7)+5]),
       }
     }
 
