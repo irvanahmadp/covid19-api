@@ -1,11 +1,15 @@
 # Covid19-api
 
-- List daerah
+### List daerah
 
-  Get http://covid19-api-id.herokuapp.com/
+  Request
+  
+  Get: http://covid19-api-id.herokuapp.com/
 
   Response:
-  `{
+  
+```
+  {
     "status_code": 200,
     "data": [
       {
@@ -13,15 +17,20 @@
         "url": "https://covid19-api-id.herokuapp.com/provinsi/"
       }
     ]
-  }`
+  }
+```
 
 
-- List provinsi
+### List provinsi
 
-  Get https://covid19-api-id.herokuapp.com/provinsi/
+  Request
+  
+  Get: https://covid19-api-id.herokuapp.com/provinsi/
 
   Response:
-  `{
+
+```
+  {
     "status_code": 200,
     "data": [
       {
@@ -33,14 +42,18 @@
         "url": "https://covid19-api-id.herokuapp.com/provinsi/jawa-barat"
       }
     ]
-  }`
+  } 
+```
 
-- Data penyebaran setiap kota/kabupaten di Jawa Barat
+### Data penyebaran setiap kota/kabupaten di Jawa Barat
 
-  Get https://covid19-api-id.herokuapp.com/provinsi/jawa-barat
+  Request
+  
+  Get: https://covid19-api-id.herokuapp.com/provinsi/jawa-barat
 
   Response:
-  `{
+```
+  {
     "status_code": 200,
     "provinsi": "jawa-barat",
     "data": [
@@ -53,4 +66,5 @@
         "meninggal": 2
       }
     ]
-  }`
+  }
+```
