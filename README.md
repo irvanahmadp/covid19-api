@@ -8,7 +8,7 @@
 
   Response:
   
-```
+```json
   {
     "status_code": 200,
     "data": [
@@ -29,7 +29,7 @@
 
   Response:
 
-```
+```json
   {
     "status_code": 200,
     "data": [
@@ -52,7 +52,7 @@
   Get: https://covid19-api-id.herokuapp.com/provinsi/jawa-barat
 
   Response:
-```
+```json
   {
     "status_code": 200,
     "provinsi": "jawa-barat",
